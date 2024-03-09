@@ -2,7 +2,7 @@ const { Router } = require("express");
 const { User } = require("../models/user.model");
 const loginController = Router();
 require("dotenv").config();
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 loginController.post("/", async (req, res) => {
@@ -15,8 +15,10 @@ loginController.post("/", async (req, res) => {
     bcrypt.compare(password, hash, async function (err, result) {
       if (err) {
         console.log(err);
-        res.status(401).send({ msg: "something went wrong try again" });
+        res.status(401).send({ message: "something went wrong try again" });
       } else if (result === true) {
+        await User.findByIdAndUpdate({ _id: user._id }, { active: true });
+
         const token = jwt.sign(
           {
             userId: user._id
@@ -25,21 +27,23 @@ loginController.post("/", async (req, res) => {
         );
 
         res.status(201).send({
-          msg: "Login Successful",
+          message: "Login Successful",
           token: token,
           user: {
             id: user._id,
-            name: user.name,
-            phoneNo: user.phoneNo,
+            firstname: user.firstname,
+            lastname: user.lastname,
+            mobile: user.mobile,
+            bio: user.bio,
             role: user.role,
             email: user.email
           }
         });
       } else {
-        res.send({ msg: "please login again" });
+        res.status(401).send({ message: "please login again" });
       }
     });
-  } else res.send({ msg: "something went wrong" });
+  } else res.status(500).send({ message: "something went wrong" });
 });
 
 loginController.get("/getactive", async (req, res) => {
@@ -48,7 +52,7 @@ loginController.get("/getactive", async (req, res) => {
 
     res.send({ all: all });
   } catch (error) {
-    res.send({ msg: "something went wrong" });
+    res.status(500).send({ message: "something went wrong" });
   }
 });
 

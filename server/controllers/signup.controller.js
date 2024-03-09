@@ -1,29 +1,36 @@
 const { Router } = require("express");
 const { User } = require("../models/user.model");
 const signupController = Router();
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 
 signupController.post("/", (req, res) => {
-  const { phoneNo, name, email, password, role } = req.body;
+  const { mobile, firstname, lastname, email, password, active, role, bio } =
+    req.body;
 
   bcrypt.hash(password, 8, async function (err, hash) {
     if (err) {
-      console.log(err);
-      res.status(401).send({ msg: "something went wrong please signup again" });
+      res
+        .status(401)
+        .send({ message: "something went wrong please signup again" });
     }
-
     try {
       const user = new User({
-        phoneNo,
-        name,
+        mobile,
+        firstname,
+        lastname,
         email,
         password: hash,
-        role
+        role,
+        bio,
+        active
       });
       await user.save();
-      res.status(201).send({ msg: "Sigup Successful" });
+      res.status(201).send({ message: "Sigup Successful" });
     } catch (error) {
-      res.status(401).send({ msg: "something went wrong please signup again" });
+      console.log("err", error);
+      res
+        .status(500)
+        .send({ message: "something went wrong please signup again" });
     }
   });
 });
