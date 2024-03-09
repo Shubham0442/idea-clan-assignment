@@ -2,21 +2,22 @@ import { Box, Button, Image } from "@chakra-ui/react";
 import React from "react";
 import UserMenu from "../UserMenu";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { isAuth, token, user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const studentRoutes = [
-    { id: 1, name: "Courses", to: "/courses" },
-    { id: 2, name: "My Courses", to: "/student-courses" },
-    { id: 3, name: "My Dashboard", to: "/student-dash" }
+    { id: 1, name: "My Dashboard", to: "/" },
+    { id: 2, name: "Courses", to: "/courses" },
+    { id: 3, name: "My Courses", to: "/student-courses" }
   ];
 
   const adminRoutes = [
-    { id: 1, name: "Courses", to: "/courses" },
-    { id: 2, name: "My Dashboard", to: "/" }
+    { id: 1, name: "My Dashboard", to: "/" },
+    { id: 2, name: "Courses", to: "/courses" }
   ];
 
   return (
@@ -30,7 +31,7 @@ const Navbar = () => {
       top="0"
       left="0"
       right="0"
-      h="80px"
+      h="70px"
       bg="#fff"
       zIndex={10}
     >
@@ -54,12 +55,24 @@ const Navbar = () => {
         >
           {user?.role === "admin"
             ? adminRoutes?.map((el) => (
-                <Box key={el?.id} onClick={() => navigate(el?.to)}>
+                <Box
+                  key={el?.id}
+                  onClick={() => navigate(el?.to)}
+                  style={
+                    location.pathname === el?.to ? { color: "#3182ce" } : {}
+                  }
+                >
                   {el?.name}
                 </Box>
               ))
             : studentRoutes?.map((el) => (
-                <Box key={el?.id} onClick={() => navigate(el?.to)}>
+                <Box
+                  key={el?.id}
+                  onClick={() => navigate(el?.to)}
+                  style={
+                    location.pathname === el?.to ? { color: "#3182ce" } : {}
+                  }
+                >
                   {el?.name}
                 </Box>
               ))}

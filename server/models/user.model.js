@@ -13,7 +13,8 @@ const userSchema = mongoose.Schema({
     required: true,
     enum: ["admin", "student"],
     default: "student"
-  }
+  },
+  courses: { type: Array }
 });
 
 const User = mongoose.model("user", userSchema);

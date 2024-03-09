@@ -68,6 +68,9 @@ const Login = () => {
       <Box
         w={{ base: "80%", sm: "90%", md: "50%", lg: "25%" }}
         m="auto"
+        bg="#fff"
+        p="40px"
+        borderRadius="10px"
         fontSize={{ base: "14px", sm: "15px" }}
       >
         <form style={{ width: "100%", margin: "auto" }}>
@@ -108,7 +111,6 @@ const Login = () => {
           <Box
             w="100%"
             h={{ base: "30px", sm: "30px", md: "40px", lg: "40px" }}
-            mb="40px"
           >
             <Button
               w="100%"
@@ -122,18 +124,18 @@ const Login = () => {
             </Button>
           </Box>
         </form>
-        <Text fontWeight="500">New to Edu-Hub?</Text>
-        <Link to="/register">
-          <Text
-            fontWeight="semibold"
-            fontSize={{ base: "16px", sm: "18px" }}
-            color="#3182ce"
-            mt="5px"
-          >
-            Register
-          </Text>
-        </Link>
       </Box>
+      <Text fontWeight="500" mt="10px">New to Edu-Hub?</Text>
+      <Link to="/register">
+        <Text
+          fontWeight="semibold"
+          fontSize={{ base: "16px", sm: "18px" }}
+          color="#3182ce"
+          mt="5px"
+        >
+          Register
+        </Text>
+      </Link>
     </Box>
   );
 };

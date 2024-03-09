@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../State/Actions";
 
 const Register = () => {
@@ -23,7 +23,7 @@ const Register = () => {
     mobile: "",
     role: "student"
   });
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const toast = useToast();
 
@@ -45,6 +45,7 @@ const Register = () => {
           position: "top-right",
           status: "success"
         });
+        navigate("/")
       } else {
         toast({
           title: "Registration Fail!",
@@ -64,7 +65,7 @@ const Register = () => {
         textAlign="center"
         fontWeight="bold"
         fontSize={{ base: "20px", sm: "25px", md: "25px" }}
-        mb="30px"
+        my="10px"
       >
         Register
       </Text>
@@ -72,6 +73,10 @@ const Register = () => {
         w={{ base: "80%", sm: "80%", md: "65%", lg: "35%" }}
         m="auto"
         fontSize={{ base: "14px", sm: "15px" }}
+        bg="#fff"
+        py="25px"
+        px="40px"
+        borderRadius="10px"
       >
         <form style={{ width: "100%", margin: "auto" }}>
           <Box
@@ -178,7 +183,6 @@ const Register = () => {
           <Box
             w="100%"
             h={{ base: "30px", sm: "30px", md: "40px", lg: "40px" }}
-            mb="40px"
           >
             <Button
               w="100%"
@@ -191,18 +195,18 @@ const Register = () => {
             </Button>
           </Box>
         </form>
-        <Text fontWeight="500">Already have an account?</Text>
-        <Link to="/login">
-          <Text
-            fontWeight="semibold"
-            fontSize={{ base: "16px", sm: "18px" }}
-            color="#3182ce"
-            mt="5px"
-          >
-            Login
-          </Text>
-        </Link>
       </Box>
+      <Text fontWeight="500" mt="10px">Already have an account?</Text>
+      <Link to="/login">
+        <Text
+          fontWeight="semibold"
+          fontSize={{ base: "16px", sm: "18px" }}
+          color="#3182ce"
+          mt="5px"
+        >
+          Login
+        </Text>
+      </Link>
     </Box>
   );
 };
