@@ -33,7 +33,7 @@ const DashboardSidebar = ({ activeTab, setActiveTab }) => {
       pt="25px"
       fontWeight="600"
     >
-      {list.map((el) => (
+      {list?.map((el) => (
         <Flex
           key={el.title}
           mb="40px"

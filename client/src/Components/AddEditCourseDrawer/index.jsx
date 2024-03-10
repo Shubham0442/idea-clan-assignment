@@ -16,7 +16,8 @@ import {
   Stack,
   Box,
   Select,
-  useToast
+  useToast,
+  Tooltip
 } from "@chakra-ui/react";
 import { FaPencilAlt, FaPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -100,16 +101,11 @@ const AddEditCourseDrawer = ({ data }) => {
   return (
     <>
       {data ? (
-        <Button
-          w="25px"
-          h="40px"
-          borderRadius="50%"
-          bg="blue.200"
-          color="blue"
-          onClick={onOpen}
-        >
-          <FaPencilAlt />
-        </Button>
+        <Tooltip label="Edit course">
+          <Button size="xs" bg="blue.200" color="blue" onClick={onOpen}>
+            <FaPencilAlt />
+          </Button>
+        </Tooltip>
       ) : (
         <Button
           leftIcon={<FaPlus />}

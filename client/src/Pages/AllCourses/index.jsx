@@ -1,5 +1,5 @@
-import { Box, Checkbox, Flex, FormLabel, Text } from "@chakra-ui/react";
-import React, { useEffect, useMemo } from "react";
+import { Box, Checkbox, Flex, Text } from "@chakra-ui/react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CourseCard, LoadingIndicator, NoData } from "../../Components";
 import { filterCategory, filterType, getAllCourses } from "../../State/Actions";

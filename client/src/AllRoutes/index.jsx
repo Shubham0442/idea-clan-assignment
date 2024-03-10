@@ -5,7 +5,7 @@ import {
   AllCourses,
   Login,
   Register,
-  StudentCourses,
+  SingleCourse,
   StudentDashboard
 } from "../Pages";
 import { Box } from "@chakra-ui/react";
@@ -33,12 +33,19 @@ const AllRoutes = () => {
             )
           }
         />
-        <Route path="/courses" element={<AllCourses />} />
         <Route
-          path="/student-courses"
+          path="/courses"
           element={
             <PrivateRoute>
-              <StudentCourses />
+              <AllCourses />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/courses/:_id"
+          element={
+            <PrivateRoute>
+              <SingleCourse />
             </PrivateRoute>
           }
         />

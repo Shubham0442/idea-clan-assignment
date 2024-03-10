@@ -26,7 +26,7 @@ const AdminDashboard = () => {
 
   return (
     <Box w="100%" h="100%" display="flex" m="auto">
-      <Flex w="85%" m="auto" h="100%" p="15px" gap="20px">
+      <Flex w="90%" m="auto" h="100%" p="15px" gap="20px">
         <Box w="20%" bg="#fff" h="100%">
           <DashboardSidebar activeTab={activeTab} setActiveTab={setActiveTab} />
         </Box>

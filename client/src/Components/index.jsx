@@ -7,3 +7,6 @@ export { default as AddEditCourseDrawer } from "./AddEditCourseDrawer";
 export { default as StudentDashSidebar } from "./StudentDashSidebar";
 export { default as CourseCard } from "./CourseCard";
 export { default as StudentCard } from "./StudentCard";
+export { default as CourseIcon } from "./CourseIcon";
+export { default as AddEditContentModal } from "./AddEditContentModal";
+export { default as ContentCard } from "./ContentCard";

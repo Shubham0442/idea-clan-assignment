@@ -1,4 +1,5 @@
 export { login, register, logout } from "./authActions";
+
 export {
   addNewCourse,
   getAllCourses,
@@ -7,4 +8,15 @@ export {
   filterCategory,
   filterType
 } from "./courseActions";
+
 export { getAllStudents, updateStudentRole } from "./studentActions";
+
+export { getMyCourses, addMyCourse, removeMyCourse } from "./myCourseActions";
+
+export {
+  getAllContent,
+  getStudentContent,
+  updateContent,
+  removeContent,
+  addNewContent
+} from "./contentActions";

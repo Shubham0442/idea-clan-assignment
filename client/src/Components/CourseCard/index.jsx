@@ -1,23 +1,14 @@
-import { Box, Button, Flex, Text, Tooltip } from "@chakra-ui/react";
-import React from "react";
+import { Box, Button, Flex, Text, Tooltip, useToast } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { FaPlus, FaTrash } from "react-icons/fa";
 import {
-  FaCode,
-  FaReact,
-  FaAngular,
-  FaVuejs,
-  FaHtml5,
-  FaCss3Alt,
-  FaNodeJs,
-  FaPython,
-  FaGem,
-  FaJava,
-  FaPlus,
-  FaTrash
-} from "react-icons/fa";
-import { IoLogoJavascript } from "react-icons/io5";
-import { AddEditCourseDrawer } from "../../Components";
-import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+  AddEditContentModal,
+  AddEditCourseDrawer,
+  CourseIcon
+} from "../../Components";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+import { getMyCourses, removeMyCourse } from "../../State/Actions";
 
 const CourseCard = ({
   course_name,
@@ -27,51 +18,48 @@ const CourseCard = ({
   prerequisites,
   _id
 }) => {
-  const { user } = useSelector((state) => state.auth);
+  const { user, token } = useSelector((state) => state.auth);
   const location = useLocation();
+  const dispatch = useDispatch();
+  const [hoverd, setHovered] = useState(false);
+  const navigate = useNavigate();
+  const toast = useToast();
 
-  const CourseIcon = () => {
-    const regex =
-      /(JavaScript|React|Angular|Vue|Java|HTML|Python|CSS|Node\.js|Express|Django|Flask|Ruby on Rails)/gi;
-
-    const match = regex?.exec(course_name);
-
-    if (match) {
-      const language = match[0].toLowerCase();
-
-      switch (language) {
-        case "javascript":
-          return <IoLogoJavascript fontSize="30px" />;
-        case "react":
-          return <FaReact fontSize="30px" />;
-        case "java":
-          return <FaJava fontSize="30px" />;
-        case "angular":
-          return <FaAngular fontSize="30px" />;
-        case "vue":
-          return <FaVuejs fontSize="30px" />;
-        case "html":
-          return <FaHtml5 fontSize="30px" />;
-        case "css":
-          return <FaCss3Alt fontSize="30px" />;
-        case "node.js":
-        case "express":
-          return <FaNodeJs fontSize="30px" />;
-        case "django":
-        case "flask":
-          return <FaPython fontSize="30px" />;
-        case "python":
-          return <FaPython fontSize="30px" />;
-        case "ruby on rails":
-          return <FaGem fontSize="30px" />;
-        default:
-          return <FaCode fontSize="30px" />;
+  const handleRemove = (id) => {
+    dispatch(removeMyCourse(token, id)).then((res) => {
+      if (res?.type === "REMOVE_MY_COURSE_SUCCESS") {
+        dispatch(getMyCourses(token, user?.id));
+        toast({
+          status: "success",
+          title: "Course Removed!",
+          duration: 1500,
+          isClosable: true,
+          position: "top-right"
+        });
+      } else {
+        toast({
+          status: "error",
+          title: "Failed to removed Course!",
+          description: "Something went wrong!, Please try again.",
+          duration: 1500,
+          isClosable: true,
+          position: "top-right"
+        });
       }
-    } else return <FaCode fontSize="30px" />;
+    });
   };
 
   return (
-    <Box w={{base: "300px", sm: "300px", md: "280px", lg: "250px"}} h="250px" p="15px" bg="#fff" textAlign="left">
+    <Box
+      w={{ base: "300px", sm: "300px", md: "280px", lg: "250px" }}
+      h={location.pathname === "/courses" ? "225px" : "250px"}
+      p="15px"
+      bg="#fff"
+      textAlign="left"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      position="relative"
+    >
       <Flex
         alignItems="flex-start"
         justifyContent="space-between"
@@ -81,52 +69,34 @@ const CourseCard = ({
         color="#545454"
         mb="10px"
       >
-        <CourseIcon />
-        <Box
-          bg="green.100"
-          mb="10px"
-          w="86px"
-          h="25px"
-          fontSize="12px"
-          borderRadius="12.5px"
-          textAlign="center"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          {duration} Months
-        </Box>
+        <CourseIcon course_name={course_name} />
+        {location.pathname !== "/courses" && (
+          <Box
+            bg="yellow.100"
+            mb="10px"
+            w="86px"
+            h="25px"
+            fontSize="12px"
+            borderRadius="12.5px"
+            textAlign="center"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            {duration} Months
+          </Box>
+        )}
       </Flex>
       <Box fontSize="15px" fontWeight="650">
         {course_name}
       </Box>
-      <Box fontSize="12px" fontWeight="500" h="100px">
-        <Text
-          w="100%"
-          h="40px"
-          overflow="hidden"
-          textOverflow="ellipsis"
-          whiteSpace="-moz-pre-wrap"
-          color="#646464"
-        >
-          {description}
-        </Text>
+      <Box fontSize="12px" fontWeight="500" h="60px">
         <Text fontWeight="650">Prerequisites:</Text>
         <Text color="#646464">{prerequisites}</Text>
       </Box>
       {user?.role === "admin" && location.pathname !== "/courses" && (
         <Flex gap="10px">
-          <Tooltip label="Add content and lectures">
-            <Button
-              w="25px"
-              h="40px"
-              borderRadius="50%"
-              bg="green.200"
-              color="#fff"
-            >
-              <FaPlus />
-            </Button>
-          </Tooltip>
+          <AddEditContentModal courseId={_id} course_name={course_name} />
           <Tooltip label="Edit course">
             <AddEditCourseDrawer
               data={{
@@ -140,16 +110,62 @@ const CourseCard = ({
             />
           </Tooltip>
           <Tooltip label="Remove course">
-            <Button
-              w="25px"
-              h="40px"
-              borderRadius="50%"
-              bg="red.200"
-              color="red"
-            >
+            <Button size="xs" bg="red.200" color="red">
               <FaTrash />
             </Button>
           </Tooltip>
+        </Flex>
+      )}
+      {location?.pathname === "/courses" && (
+        <Box
+          bg="yellow.100"
+          mb="10px"
+          w="86px"
+          h="25px"
+          fontSize="12px"
+          borderRadius="12.5px"
+          textAlign="center"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          {duration} Months
+        </Box>
+      )}
+      {location.pathname === "/courses" && hoverd && (
+        <Box
+          borderTopRadius="10px"
+          mb="10px"
+          w="100%"
+          h="50px"
+          borderRadius="12.5px"
+          textAlign="center"
+          display="flex"
+          alignItems="center"
+          fontWeight="500"
+          justifyContent="center"
+          position="absolute"
+          zIndex={2}
+          bottom="0"
+          left="0"
+          right="0"
+          gap="10px"
+        >
+          <Button
+            h="30px"
+            fontSize="12px"
+            variant="outline"
+            onClick={() => navigate(`/courses/${_id}`)}
+          >
+            See Details
+          </Button>
+        </Box>
+      )}
+      {user.role === "student" && location.pathname !== "/courses" && (
+        <Flex alignItems="center" justifyContent="center" h="50px">
+          <Button h="30px" fontSize="12px" onClick={() => handleRemove(_id)}>
+            Remove Course
+          </Button>
         </Flex>
       )}
     </Box>
