@@ -11,8 +11,7 @@ const Navbar = () => {
 
   const studentRoutes = [
     { id: 1, name: "My Dashboard", to: "/" },
-    { id: 2, name: "Courses", to: "/courses" },
-    { id: 3, name: "My Courses", to: "/student-courses" }
+    { id: 2, name: "Courses", to: "/courses" }
   ];
 
   const adminRoutes = [
@@ -35,7 +34,7 @@ const Navbar = () => {
       bg="#fff"
       zIndex={10}
     >
-      <Box w="30%">
+      <Box w="10%">
         <Box
           w="65px"
           h="60px"
@@ -48,9 +47,10 @@ const Navbar = () => {
       {isAuth && token && (
         <Box
           display="flex"
-          justifyContent="center"
+          justifyContent="flex-start"
           alignItems="center"
           gap="20px"
+          w="70%"
           fontWeight="600"
         >
           {user?.role === "admin"
@@ -59,18 +59,24 @@ const Navbar = () => {
                   key={el?.id}
                   onClick={() => navigate(el?.to)}
                   style={
-                    location.pathname === el?.to ? { color: "#3182ce" } : {}
+                    location.pathname === el?.to
+                      ? { color: "#3182ce", borderBottom: "2px solid #3182ce" }
+                      : {}
                   }
+                  _hover={{ cursor: "pointer" }}
                 >
                   {el?.name}
                 </Box>
               ))
             : studentRoutes?.map((el) => (
                 <Box
+                  _hover={{ cursor: "pointer" }}
                   key={el?.id}
                   onClick={() => navigate(el?.to)}
                   style={
-                    location.pathname === el?.to ? { color: "#3182ce" } : {}
+                    location.pathname === el?.to
+                      ? { color: "#3182ce", borderBottom: "2px solid #3182ce" }
+                      : {}
                   }
                 >
                   {el?.name}
@@ -78,7 +84,7 @@ const Navbar = () => {
               ))}
         </Box>
       )}
-      <Box w="30%" display="flex" alignItems="center" justifyContent="flex-end">
+      <Box w="20%" display="flex" alignItems="center" justifyContent="flex-end">
         {isAuth && token ? (
           <UserMenu />
         ) : (

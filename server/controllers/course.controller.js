@@ -1,29 +1,40 @@
 const { Router } = require("express");
 const { Course } = require("../models/course.model");
 const { authorization } = require("../middlewares/authorization");
+const { authentication } = require("../middlewares/authentication");
 
 const courseController = Router();
 
-courseController.post("/new", authorization(["admin"]), async (req, res) => {
-  try {
-    const course = Course.findOne({ course_name });
+courseController.post(
+  "/new",
+  authentication,
+  authorization(["admin"]),
+  async (req, res) => {
+    try {
+      const course = await Course.findOne({
+        course_name: req?.body?.course_name
+      });
 
-    if (course) {
-      res.status(409).send({ message: "Course already exist!" });
-    } else {
-      const newCourse = new Course(req.body);
-      await newCourse.save();
-      res.status(201).send({ message: "Course Created Successfully!" });
+      if (course) {
+        res.status(409).send({ message: "Course already exist!" });
+      } else {
+        const newCourse = new Course(req.body);
+        await newCourse.save();
+        res.status(201).send({ message: "Course Created Successfully!" });
+      }
+    } catch (error) {
+      console.log(error);
+      res
+        .status(500)
+        .send({ message: "Something went wrong. Please Try Again" });
     }
-  } catch (error) {
-    res.status(500).send({ message: "Something went wrong. Please Try Again" });
   }
-});
+);
 
-courseController.get("/getall", async (req, res) => {
+courseController.get("/", authentication, async (req, res) => {
   try {
-    const allCourses = await Course.find();
-    res.status(200).send({ allCourses });
+    const allCourses = await Course.find({});
+    res.status(200).send({ courses: allCourses });
   } catch (error) {
     res.status(500).send({ message: "Something went wrong. Please Try Again" });
   }
@@ -31,12 +42,12 @@ courseController.get("/getall", async (req, res) => {
 
 courseController.patch(
   "/update/:courseId",
-  authorization["admin"],
+  authentication,
+  authorization(["admin"]),
   async (req, res) => {
     try {
       const { courseId } = req.params;
-
-      await Course.ByIdAndUpdate({ _id: courseId }, { ...req.body });
+      await Course.findByIdAndUpdate({ _id: courseId }, { ...req.body });
       res.status(200).send({ message: "Updated Course Details Successfully" });
     } catch (error) {
       res
@@ -46,9 +57,10 @@ courseController.patch(
   }
 );
 
-courseController.patch(
+courseController.delete(
   "/remove/:courseId",
-  authorization["admin"],
+  authentication,
+  authorization(["admin"]),
   async (req, res) => {
     try {
       const { courseId } = req.params;
@@ -61,3 +73,5 @@ courseController.patch(
     }
   }
 );
+
+module.exports = { courseController };

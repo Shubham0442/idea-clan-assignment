@@ -12,7 +12,8 @@ export const getAllStudents = (token) => (dispatch) => {
   dispatch({ type: GET_ALL_STUDENTS_REQUEST });
 
   axios({
-    url: `${process.env.REACT_APP_BASE_URL}/students`,
+    url: `${process.env.REACT_APP_BASE_URL}/student`,
+    method: "get",
     headers: {
       authorization: `Bearer ${token}`
     }
@@ -28,13 +29,13 @@ export const getAllStudents = (token) => (dispatch) => {
 export const updateStudentRole = (studentId, token) => (dispatch) => {
   dispatch({ type: UPDATE_STUDENT_ROLE_REQUEST });
 
-  return axios
-    .patch({
-      url: `${process.env.REACT_APP_BASE_URL}/students/${studentId}`,
-      headers: {
-        authorization: `Bearer ${token}`
-      }
-    })
+  return axios({
+    url: `${process.env.REACT_APP_BASE_URL}/student/${studentId}`,
+    method: "patch",
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  })
     .then((res) => {
       return dispatch({ type: UPDATE_STUDENT_ROLE_SUCCESS });
     })

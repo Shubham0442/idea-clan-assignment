@@ -1,7 +1,8 @@
 const { Router } = require("express");
 const { User } = require("../models/user.model");
-const signupController = Router();
 const bcrypt = require("bcrypt");
+
+const signupController = Router();
 
 signupController.post("/", (req, res) => {
   const { mobile, firstname, lastname, email, password, active, role, bio } =

@@ -6,7 +6,9 @@ const courseSchema = mongoose.Schema({
   duration: { type: String, required: true },
   prerequisites: { type: String, required: true },
   userId: { type: String, required: true },
-  created_at: { type: String, required: true }
+  created_at: { type: String, required: true },
+  category: { type: String, required: true },
+  type: { type: String, required: true }
 });
 
 const Course = mongoose.model("course", courseSchema);
