@@ -3,6 +3,8 @@ import {
   ADD_NEW_COURSE_FAILURE,
   ADD_NEW_COURSE_REQUEST,
   ADD_NEW_COURSE_SUCCESS,
+  FILTER_CATEGORY,
+  FILTER_TYPE,
   GET_ALL_COURSES_FAILURE,
   GET_ALL_COURSES_REQUEST,
   GET_ALL_COURSES_SUCCESS,
@@ -14,7 +16,7 @@ import {
   UPDATE_COURSE_SUCCESS
 } from "../ActionTypes";
 
-export const getAllCourses = (token) => (dispatch) => {
+export const getAllCourses = (token, reqFilter) => (dispatch) => {
   dispatch({ type: GET_ALL_COURSES_REQUEST });
 
   return axios({
@@ -23,7 +25,8 @@ export const getAllCourses = (token) => (dispatch) => {
     headers: {
       "authorization": `Bearer ${token}`,
       "Content-Type": "application/json"
-    }
+    },
+    params: { ...reqFilter }
   })
     .then((res) => {
       dispatch({
@@ -87,4 +90,12 @@ export const removeCourse = (token, courseId) => (dispatch) => {
     .catch((err) => {
       dispatch({ type: REMOVE_COURSE_FAILURE });
     });
+};
+
+export const filterCategory = (payload) => (dispatch) => {
+  return dispatch({ type: FILTER_CATEGORY, payload });
+};
+
+export const filterType = (payload) => (dispatch) => {
+  return dispatch({ type: FILTER_TYPE, payload });
 };

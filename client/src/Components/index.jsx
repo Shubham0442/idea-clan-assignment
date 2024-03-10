@@ -5,3 +5,5 @@ export { default as LoadingIndicator } from "./LoadingIndicator";
 export { default as NoData } from "./NoData";
 export { default as AddEditCourseDrawer } from "./AddEditCourseDrawer";
 export { default as StudentDashSidebar } from "./StudentDashSidebar";
+export { default as CourseCard } from "./CourseCard";
+export { default as StudentCard } from "./StudentCard";

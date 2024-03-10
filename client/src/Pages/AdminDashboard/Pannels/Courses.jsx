@@ -1,11 +1,11 @@
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import {
   AddEditCourseDrawer,
   LoadingIndicator,
-  NoData
+  NoData,
+  CourseCard
 } from "../../../Components";
-import CourseCard from "./Cards/CourseCard";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCourses } from "../../../State/Actions";
 
@@ -17,7 +17,6 @@ const Courses = () => {
   useEffect(() => {
     dispatch(getAllCourses(token));
   }, []);
-  console.log(courses);
 
   return (
     <Box w="100%" m="auto">

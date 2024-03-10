@@ -1,8 +1,8 @@
 import { Box, Text } from "@chakra-ui/react";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LoadingIndicator, NoData } from "../../../Components";
-import StudentCard from "./Cards/StudentCard";
+import { LoadingIndicator, NoData, StudentCard } from "../../../Components";
+
 import { getAllStudents } from "../../../State/Actions";
 
 const Students = () => {

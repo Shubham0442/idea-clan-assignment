@@ -3,6 +3,8 @@ export {
   addNewCourse,
   getAllCourses,
   updateCourse,
-  removeCourse
+  removeCourse,
+  filterCategory,
+  filterType
 } from "./courseActions";
 export { getAllStudents, updateStudentRole } from "./studentActions";

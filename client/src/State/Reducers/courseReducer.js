@@ -1,4 +1,6 @@
 import {
+  FILTER_CATEGORY,
+  FILTER_TYPE,
   GET_ALL_COURSES_FAILURE,
   GET_ALL_COURSES_REQUEST,
   GET_ALL_COURSES_SUCCESS
@@ -7,7 +9,11 @@ import {
 const initState = {
   isLoading: false,
   isError: false,
-  courses: []
+  courses: [],
+  filters: {
+    category: [],
+    type: []
+  }
 };
 
 const courseReducer = (state = initState, { type, payload }) => {
@@ -22,7 +28,7 @@ const courseReducer = (state = initState, { type, payload }) => {
         ...state,
         isLoading: false,
         courses: payload,
-        isError: false,
+        isError: false
       };
     case GET_ALL_COURSES_FAILURE:
       return {
@@ -30,6 +36,22 @@ const courseReducer = (state = initState, { type, payload }) => {
         isLoading: false,
         isError: true,
         courses: []
+      };
+    case FILTER_CATEGORY:
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          category: payload
+        }
+      };
+    case FILTER_TYPE:
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          type: payload
+        }
       };
     default:
       return state;

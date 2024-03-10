@@ -33,7 +33,38 @@ courseController.post(
 
 courseController.get("/", authentication, async (req, res) => {
   try {
-    const allCourses = await Course.find({});
+    const { category, type } = req.query;
+    console.log(category, type);
+
+    let aggregationPipeline = [];
+
+    if (category && type) {
+      aggregationPipeline.push({
+        $match: {
+          $and: [{ category: { $in: category } }, { type: { $in: type } }]
+        }
+      });
+    } else if (category) {
+      aggregationPipeline.push({
+        $match: {
+          $and: [{ category: { $in: category } }]
+        }
+      });
+    } else if (type) {
+      aggregationPipeline.push({
+        $match: {
+          $and: [{ type: { $in: type } }]
+        }
+      });
+    }
+
+    let allCourses;
+    if (aggregationPipeline.length !== 0) {
+      allCourses = await Course.aggregate(aggregationPipeline);
+    } else {
+      allCourses = await Course.find();
+    }
+    
     res.status(200).send({ courses: allCourses });
   } catch (error) {
     res.status(500).send({ message: "Something went wrong. Please Try Again" });
