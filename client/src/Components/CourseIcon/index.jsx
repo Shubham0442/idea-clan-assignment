@@ -12,6 +12,7 @@ import {
   FaJava
 } from "react-icons/fa";
 import { IoLogoJavascript } from "react-icons/io5";
+import { SiMongodb, SiExpress, SiMysql } from "react-icons/si";
 
 const CourseIcon = ({ course_name }) => {
   const regex =
@@ -36,9 +37,14 @@ const CourseIcon = ({ course_name }) => {
         return <FaHtml5 fontSize="30px" />;
       case "css":
         return <FaCss3Alt fontSize="30px" />;
+      case "mongodb":
+        return <SiMongodb fontSize="30px" />;
+      case "mysql":
+        return <SiMysql fontSize="30px" />;
       case "node.js":
-      case "express":
         return <FaNodeJs fontSize="30px" />;
+      case "express":
+        return <SiExpress fontSize="30px" />;
       case "django":
       case "flask":
         return <FaPython fontSize="30px" />;

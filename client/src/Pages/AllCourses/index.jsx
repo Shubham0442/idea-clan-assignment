@@ -77,6 +77,16 @@ const AllCourses = () => {
               Backend
             </Checkbox>
           </Box>
+          <Box mb="10px">
+            <Checkbox
+              size="md"
+              defaultChecked={filters?.category?.includes("Database")}
+              value="Database"
+              onChange={(e) => handleCategory(e.target.value)}
+            >
+              Database
+            </Checkbox>
+          </Box>
         </Box>
         <Box mt="20px" fontWeight="500" fontSize="14px" color="#545454">
           <Text mb="10px" color="black" fontWeight="650">
@@ -147,9 +157,7 @@ const AllCourses = () => {
           overflowX="hidden"
           overflowY="auto"
         >
-          {isLoading && !isError && courses?.length === 0 && (
-            <LoadingIndicator />
-          )}
+          {isLoading && !isError && <LoadingIndicator />}
           {!isLoading && !isError && courses?.length === 0 && (
             <Flex
               alignItems="center"

@@ -31,7 +31,7 @@ const Content = () => {
       }
       gap="20px"
     >
-      {isLoading && !isError && allContent?.length === 0 && (
+      {isLoading && !isError && (
         <LoadingIndicator />
       )}
       {!isLoading && !isError && allContent?.length === 0 && (

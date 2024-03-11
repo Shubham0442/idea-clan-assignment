@@ -177,6 +177,7 @@ const AddEditCourseDrawer = ({ data }) => {
                   >
                     <option value="Frontend">Frontend</option>
                     <option value="Backend">Backend</option>
+                    <option value="Database">Database</option>
                   </Select>
                 </Box>
                 <Box>
@@ -188,7 +189,7 @@ const AddEditCourseDrawer = ({ data }) => {
                     onChange={handleChange}
                     fontSize="14px"
                   >
-                    <option value="Framework">Language</option>
+                    <option value="Language">Language</option>
                     <option value="Framework">Framework/Library</option>
                     <option value="Library">UI Library</option>
                     <option value="Other">Other</option>

@@ -11,7 +11,7 @@ import { getAllCourses } from "../../../State/Actions";
 
 const Courses = () => {
   const { isLoading, isError, courses } = useSelector((state) => state.courses);
-  const {  token } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -30,12 +30,12 @@ const Courses = () => {
         h="590px"
         display="flex"
         alignItems={
-          isLoading && !isError && courses?.length === 0
+          isLoading && !isError
             ? "center"
             : "flex-start"
         }
         justifyContent={
-          isLoading && !isError && courses?.length === 0
+          isLoading && !isError
             ? "center"
             : "flex-start"
         }
@@ -44,7 +44,7 @@ const Courses = () => {
         overflowX="hidden"
         overflowY="auto"
       >
-        {isLoading && !isError && courses?.length === 0 && <LoadingIndicator />}
+        {isLoading && !isError && <LoadingIndicator />}
         {!isLoading && !isError && courses?.length === 0 && (
           <Flex
             alignItems="center"

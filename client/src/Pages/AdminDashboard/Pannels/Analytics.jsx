@@ -1,8 +1,35 @@
-import { Box } from "@chakra-ui/react";
-import React from "react";
+import { Box, Flex, Text } from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllContent, getAllCourses } from "../../../State/Actions";
+import CourseChart from "./Charts/CourseChart";
+import ContentChart from "./Charts/ContentChart";
 
 const Analytics = () => {
-  return <Box>Analytics</Box>;
+  const { courses, filters } = useSelector((state) => state.courses);
+  const { allContent } = useSelector((state) => state.content);
+  const { user, token } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllCourses(token, { ...filters }));
+    dispatch(getAllContent(token));
+  }, []);
+
+  return (
+    <Box w="90%" m="auto" overflowX="hidden" overflowY="auto">
+      <Flex w="100%">
+        <Box w="45%" h="auto">
+          <Text color="#545454" fontWeight="550" fontSize="14px" mb="20px">Courses</Text>
+          <CourseChart courses={courses} />
+        </Box>
+        <Box w="45%" h="auto">
+          <Text color="#545454" fontWeight="550" fontSize="14px" mb="20px">Content</Text>
+          <ContentChart contents={allContent} />
+        </Box>
+      </Flex>
+    </Box>
+  );
 };
 
 export default Analytics;

@@ -39,7 +39,7 @@ const MyCourses = () => {
         overflowX="hidden"
         overflowY="auto"
       >
-        {isLoading && !isError && myCourses?.length === 0 && (
+        {isLoading && !isError && (
           <Box>
             <LoadingIndicator />
           </Box>
