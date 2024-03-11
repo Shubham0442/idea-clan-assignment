@@ -19,6 +19,14 @@ This application is a React-based user interface with a NodeJs based server, con
 - bcrypt - Open-source library for hashing the password
 - jsonwebtoken - Open-source library for generating unique token after user login
 
+## Admin login Cridentials
+```bash
+  {
+    "email": "roy@gmail.com,
+    "password": "roy@123"
+  }
+```
+
 ### Installation
 - Clone the repository
 ```bash
