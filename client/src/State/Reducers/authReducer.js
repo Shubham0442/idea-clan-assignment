@@ -1,4 +1,5 @@
 import {
+  UPDATE_USER_DETAILS_SUCCESS,
   USER_LOGIN_FAILURE,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -44,6 +45,11 @@ const authReducer = (state = initState, { type, payload }) => {
         isError: false,
         token: null,
         user: {}
+      };
+    case UPDATE_USER_DETAILS_SUCCESS:
+      return {
+        ...state,
+        user: payload
       };
     default:
       return state;

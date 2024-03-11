@@ -1,5 +1,5 @@
 # EduHub - Learning Management System (LMS)
-This application is a React-based user interface with a NodeJs based server, consisting of LMS operations for begineer in tech. This application consist of functionality on student and admin side
+This application is a React-based user interface with a NodeJs based server, consisting of LMS operations for begineer in tech. This application consist of functionality on student and admin side.
 
 ## Features
 - Login And Register
@@ -8,7 +8,9 @@ This application is a React-based user interface with a NodeJs based server, con
 - Only all courses are available to student and admin on separate route
 - Student and admin can see courses availacan able, courses selected and content related to selected to course
 - Students can select maximum 3 courses and content related to selected course
+- Student can remove the selected course
 - All courses can be filtered by students and admin
+- Student can your personal details
 
 ### Technologies Used
 - ReactJS - for the frontend.

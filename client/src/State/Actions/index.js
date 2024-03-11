@@ -1,4 +1,4 @@
-export { login, register, logout } from "./authActions";
+export { login, register, logout, updateUserDetails } from "./authActions";
 
 export {
   addNewCourse,

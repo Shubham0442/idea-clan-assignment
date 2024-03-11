@@ -1,4 +1,7 @@
 import {
+  UPDATE_USER_DETAILS_FAILURE,
+  UPDATE_USER_DETAILS_REQUEST,
+  UPDATE_USER_DETAILS_SUCCESS,
   USER_LOGIN_FAILURE,
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -52,5 +55,24 @@ export const logout = (userId, payload) => (dispatch) => {
     .catch((err) => {
       console.log(err);
       dispatch({ type: USER_LOGOUT_FAILURE });
+    });
+};
+
+export const updateUserDetails = (token, studentId, details) => (dispatch) => {
+  dispatch({ type: UPDATE_USER_DETAILS_REQUEST });
+  return axios({
+    url: `${process.env.REACT_APP_BASE_URL}/login/update/${studentId}`,
+    method: "patch",
+    data: details,
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  })
+    .then((res) => {
+      return dispatch({ type: UPDATE_USER_DETAILS_SUCCESS, payload: details });
+    })
+    .catch((err) => {
+      console.log(err);
+      dispatch({ type: UPDATE_USER_DETAILS_FAILURE });
     });
 };
