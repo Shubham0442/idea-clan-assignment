@@ -49,7 +49,7 @@ const AddEditContentModal = ({ course_name, courseId, data }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(content);
+    // console.log(content);
 
     dispatch(addNewContent(token, content)).then((res) => {
       if (res?.type === "ADD_NEW_CONTENT_SUCCESS") {

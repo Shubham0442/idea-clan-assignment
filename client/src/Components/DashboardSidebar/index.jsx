@@ -10,10 +10,6 @@ import { Box, Flex } from "@chakra-ui/react";
 const DashboardSidebar = ({ activeTab, setActiveTab }) => {
   const list = [
     {
-      title: "Analytics",
-      icon: <IoAnalyticsOutline />
-    },
-    {
       title: "Courses",
       icon: <IoBookSharp />
     },
@@ -24,6 +20,10 @@ const DashboardSidebar = ({ activeTab, setActiveTab }) => {
     {
       title: "Students",
       icon: <FaUserGraduate />
+    },
+    {
+      title: "Analytics",
+      icon: <IoAnalyticsOutline />
     }
   ];
 

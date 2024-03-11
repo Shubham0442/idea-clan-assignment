@@ -77,7 +77,7 @@ const SingleCourse = () => {
     }
   };
 
-  console.log(myCourses);
+  // console.log(myCourses);
 
   return (
     <Box

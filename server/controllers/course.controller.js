@@ -23,7 +23,6 @@ courseController.post(
         res.status(201).send({ message: "Course Created Successfully!" });
       }
     } catch (error) {
-      console.log(error);
       res
         .status(500)
         .send({ message: "Something went wrong. Please Try Again" });
@@ -34,7 +33,6 @@ courseController.post(
 courseController.get("/", authentication, async (req, res) => {
   try {
     const { category, type } = req.query;
-    console.log(category, type);
 
     let aggregationPipeline = [];
 

@@ -28,7 +28,6 @@ signupController.post("/", (req, res) => {
       await user.save();
       res.status(201).send({ message: "Sigup Successful" });
     } catch (error) {
-      console.log("err", error);
       res
         .status(500)
         .send({ message: "something went wrong please signup again" });

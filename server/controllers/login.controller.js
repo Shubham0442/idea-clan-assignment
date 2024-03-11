@@ -15,7 +15,7 @@ loginController.post("/", async (req, res) => {
     const hash = user.password;
     bcrypt.compare(password, hash, async function (err, result) {
       if (err) {
-        console.log(err);
+        // console.log(err);
         res.status(401).send({ message: "something went wrong try again" });
       } else if (result === true) {
         await User.findByIdAndUpdate({ _id: user._id }, { active: true });

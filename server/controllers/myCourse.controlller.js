@@ -29,7 +29,7 @@ myCourseController.post("/new", authentication, async (req, res) => {
       res.status(200).send({ message: "Course Selected" });
     }
   } catch (error) {
-    console.log("error", error);
+    // console.log("error", error);
     res.status(500).send({ message: "Fail to Select Course!" });
   }
 });

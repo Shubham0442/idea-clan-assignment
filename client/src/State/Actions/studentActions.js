@@ -26,15 +26,16 @@ export const getAllStudents = (token) => (dispatch) => {
     });
 };
 
-export const updateStudentRole = (studentId, token) => (dispatch) => {
+export const updateStudentRole = (token, studentId) => (dispatch) => {
   dispatch({ type: UPDATE_STUDENT_ROLE_REQUEST });
 
   return axios({
-    url: `${process.env.REACT_APP_BASE_URL}/student/${studentId}`,
+    url: `${process.env.REACT_APP_BASE_URL}/student/update-role/${studentId}`,
     method: "patch",
     headers: {
       authorization: `Bearer ${token}`
-    }
+    },
+    data: { role: "admin" }
   })
     .then((res) => {
       return dispatch({ type: UPDATE_STUDENT_ROLE_SUCCESS });

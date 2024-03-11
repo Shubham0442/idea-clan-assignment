@@ -6,7 +6,7 @@ import Chart from "chart.js/auto";
 
 const CourseChart = ({ courses }) => {
   Chart.register(CategoryScale);
-  console.log("courses", courses);
+  // console.log("courses", courses);
 
   const chartData = useMemo(() => {
     const labels = courses.map((course) => course.course_name);

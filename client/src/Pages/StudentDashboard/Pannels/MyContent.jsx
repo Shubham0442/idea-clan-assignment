@@ -18,7 +18,7 @@ const MyContent = () => {
     return courses;
   }, [myCourses]);
 
-  console.log(myCourses, coursesSelected);
+  // console.log(myCourses, coursesSelected);
 
   useEffect(() => {
     dispatch(getMyCourses(token, user?.id));

@@ -35,11 +35,11 @@ export const login = (loginCridentials) => (dispatch) => {
   return axios
     .post(`${process.env.REACT_APP_BASE_URL}/login`, loginCridentials)
     .then((res) => {
-      console.log("res", res);
+      // console.log("res", res);
       return dispatch({ type: USER_LOGIN_SUCCESS, payload: res?.data });
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       dispatch({ type: USER_LOGIN_FAILURE });
     });
 };
@@ -53,7 +53,7 @@ export const logout = (userId, payload) => (dispatch) => {
       return dispatch({ type: USER_LOGOUT_SUCCESS });
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       dispatch({ type: USER_LOGOUT_FAILURE });
     });
 };
@@ -72,7 +72,7 @@ export const updateUserDetails = (token, studentId, details) => (dispatch) => {
       return dispatch({ type: UPDATE_USER_DETAILS_SUCCESS, payload: details });
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
       dispatch({ type: UPDATE_USER_DETAILS_FAILURE });
     });
 };

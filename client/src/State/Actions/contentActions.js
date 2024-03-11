@@ -93,7 +93,7 @@ export const removeContent = (token, contentId) => (dispatch) => {
 
 export const getStudentContent =
   (token, studentCourseDetails) => (dispatch) => {
-    console.log(studentCourseDetails);
+    // console.log(studentCourseDetails);
     dispatch({ type: GET_STUDENT_CONTENT_REQUEST });
 
     axios({

@@ -29,13 +29,13 @@ const Courses = () => {
         w="100%"
         h="590px"
         display="flex"
-        alignItems={
-          isLoading && !isError
+        alignContent={
+          isLoading || isError || courses?.length === 0
             ? "center"
             : "flex-start"
         }
         justifyContent={
-          isLoading && !isError
+          isLoading || isError || courses?.length === 0
             ? "center"
             : "flex-start"
         }

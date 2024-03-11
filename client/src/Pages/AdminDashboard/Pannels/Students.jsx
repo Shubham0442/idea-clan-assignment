@@ -9,14 +9,12 @@ const Students = () => {
   const { students, isLoading, isError } = useSelector(
     (state) => state.students
   );
-  const { user, token } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (students.length === 0) dispatch(getAllStudents(token));
   }, [students.length]);
-
-  console.log(students, isLoading);
 
   return (
     <Box w="100%" m="auto">
@@ -24,8 +22,16 @@ const Students = () => {
         w="100%"
         h="600px"
         display="flex"
-        alignItems="center"
-        justifyContent="center"
+        alignContent={
+          isLoading || isError || students.length === 0
+            ? "center"
+            : "flex-start"
+        }
+        justifyContent={
+          isLoading || isError || students.length === 0
+            ? "center"
+            : "flex-start"
+        }
         gap="20px"
         flexWrap="wrap"
         overflowX="hidden"

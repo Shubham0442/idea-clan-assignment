@@ -7,7 +7,6 @@ logoutController.patch("/:userId", async (req, res) => {
     await User.findByIdAndUpdate({ _id: req?.params?.userId }, { ...req.body });
     res.status(201).send({ message: "Logout Successful" });
   } catch (error) {
-    console.log(error);
     res.status(500).send({ message: "something went wrong" });
   }
 });

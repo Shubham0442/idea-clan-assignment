@@ -48,7 +48,7 @@ const AddEditCourseDrawer = ({ data }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(newCourse);
+    // console.log(newCourse);
     dispatch(addNewCourse(token, newCourse)).then((res) => {
       if (res?.type === "ADD_NEW_COURSE_SUCCESS") {
         dispatch(getAllCourses(token));
@@ -74,7 +74,7 @@ const AddEditCourseDrawer = ({ data }) => {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    console.log(newCourse);
+    // console.log(newCourse);
     dispatch(updateCourse(data?._id, token, newCourse)).then((res) => {
       if (res?.type === "UPDATE_COURSE_SUCCESS") {
         dispatch(getAllCourses(token));
