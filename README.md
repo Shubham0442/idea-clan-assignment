@@ -4,13 +4,13 @@ This application is a React-based user interface with a NodeJs based server, con
 ## Features
 - Login And Register
 - Add/Edit/Delete/Read Course details on admin side
-- Add/Edit/Delete/Read Content related to created course on admin side
-- Only all courses are available to student and admin on separate route
-- Student and admin can see courses availacan able, courses selected and content related to selected to course
-- Students can select maximum 3 courses and content related to selected course
-- Student can remove the selected course
+- Add/Edit/Delete/Read Content related to the created course on admin side
+- Only all courses are available to students and admin on separate route
+- Student and admin can see courses available, courses selected, and content related to selected course
+- Students can select a maximum 3 courses and can access content related to the selected course
+- Students can remove the selected course
 - All courses can be filtered by students and admin
-- Student can your personal details
+- Students can update personal details
 
 ### Technologies Used
 - ReactJS - for the frontend.
