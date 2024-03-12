@@ -1,7 +1,10 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, useToast } from "@chakra-ui/react";
 import React from "react";
 import CourseIcon from "../CourseIcon";
-import { Link } from "react-router-dom";
+import AddEditContentModal from "../AddEditContentModal";
+import Alert from "../Aleart";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllContent, removeContent } from "../../State/Actions";
 
 const ContentCard = ({
   _id,
@@ -15,6 +18,34 @@ const ContentCard = ({
   created_at,
   description
 }) => {
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const toast = useToast();
+
+  const handleRemoveContent = (token, id) => {
+    dispatch(removeContent(token, id)).then((res) => {
+      if (res?.type === "REMOVE_CONTENT_SUCCESS") {
+        dispatch(getAllContent(token));
+        toast({
+          status: "success",
+          title: "Content Removed!",
+          duration: 1500,
+          isClosable: true,
+          position: "top-right"
+        });
+      } else {
+        toast({
+          status: "error",
+          title: "Failed to removed Content!",
+          description: "Something went wrong!, Please try again.",
+          duration: 1500,
+          isClosable: true,
+          position: "top-right"
+        });
+      }
+    });
+  };
+
   return (
     <Box
       w="100%"
@@ -45,20 +76,35 @@ const ContentCard = ({
           <Box color="#000" fontSize="14px" mb="5px">
             {course_name}
           </Box>
-          <Box
-            display="flex"
-            justifyContent="center"
-            h="25px"
-            bg="green.100"
-            w="fit-content"
-            px="10px"
-            borderRadius="12.5px"
-            alignItems="center"
-          >
-            {type}
-          </Box>
+          <Flex gap="10px">
+            {type === "lecture" && (
+              <Box
+                display="flex"
+                justifyContent="center"
+                h="25px"
+                bg="yellow.100"
+                w="fit-content"
+                px="10px"
+                borderRadius="12.5px"
+                alignItems="center"
+              >
+                {duration} minutes
+              </Box>
+            )}
+            <Box
+              display="flex"
+              justifyContent="center"
+              h="25px"
+              bg="green.100"
+              w="fit-content"
+              px="10px"
+              borderRadius="12.5px"
+              alignItems="center"
+            >
+              {type}
+            </Box>
+          </Flex>
         </Flex>
-
         <Box textAlign="left" mb="5px">
           {description}
         </Box>
@@ -72,6 +118,30 @@ const ContentCard = ({
           </a>
         </Box>
       </Box>
+      {user?.role === "admin" && (
+        <Flex alignItems="center" justifyContent="flex-end" gap="15px">
+          <AddEditContentModal
+            data={{
+              _id,
+              content_name,
+              type,
+              course_name,
+              lecture_link,
+              duration,
+              reference_url,
+              courseId,
+              created_at,
+              description
+            }}
+          />
+          <Alert
+            title={content_name}
+            subtitle="Content"
+            id={_id}
+            handleClick={handleRemoveContent}
+          />
+        </Flex>
+      )}
     </Box>
   );
 };

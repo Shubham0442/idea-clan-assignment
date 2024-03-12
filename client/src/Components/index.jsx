@@ -11,3 +11,4 @@ export { default as CourseIcon } from "./CourseIcon";
 export { default as AddEditContentModal } from "./AddEditContentModal";
 export { default as ContentCard } from "./ContentCard";
 export { default as EditUserDetailsDrawer } from "./EditUserDetailsDrawer";
+export { default as Alert } from "./Aleart";

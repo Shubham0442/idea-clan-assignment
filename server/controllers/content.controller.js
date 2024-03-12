@@ -70,7 +70,7 @@ contentController.patch(
   }
 );
 
-contentController.patch(
+contentController.delete(
   "/remove/:contentId",
   authentication,
   authorization(["admin"]),
@@ -80,6 +80,7 @@ contentController.patch(
       await Content.findByIdAndDelete({ _id: contentId });
       res.status(201).send({ message: "Content Removed!" });
     } catch (error) {
+      console.log("error", error);
       res
         .status(500)
         .send({ message: "Something went wrong. Please Try Again" });

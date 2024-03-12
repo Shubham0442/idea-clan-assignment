@@ -18,9 +18,13 @@ import {
   useToast
 } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { FaPlus } from "react-icons/fa";
+import { FaPencilAlt, FaPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { addNewContent, getAllContent } from "../../State/Actions";
+import {
+  addNewContent,
+  getAllContent,
+  updateContent
+} from "../../State/Actions";
 
 const AddEditContentModal = ({ course_name, courseId, data }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -74,11 +78,36 @@ const AddEditContentModal = ({ course_name, courseId, data }) => {
     });
   };
 
+  const handleUpdateContent = (e) => {
+    e.preventDefault();
+    dispatch(updateContent(token, data?._id, content)).then((res) => {
+      if (res?.type === "UPDATE_CONTENT_SUCCESS") {
+        dispatch(getAllContent(token));
+        toast({
+          title: "Updated Content Successfully!",
+          status: "success",
+          duration: 1500,
+          isClosable: true,
+          position: "top-right"
+        });
+      } else {
+        toast({
+          title: "Fail to update Content",
+          status: "error",
+          duration: 1500,
+          isClosable: true,
+          position: "top-right"
+        });
+      }
+      onClose();
+    });
+  };
+
   return (
     <>
-      <Tooltip label="Add course content">
+      <Tooltip label={data ? "Update Course Content" : "Add course content"}>
         <Button size="xs" bg="green.200" color="#fff" onClick={onOpen}>
-          <FaPlus />
+          {user?.role === "admin" && data ? <FaPencilAlt /> : <FaPlus />}
         </Button>
       </Tooltip>
       <Modal isOpen={isOpen} onClose={onClose}>
@@ -171,7 +200,15 @@ const AddEditContentModal = ({ course_name, courseId, data }) => {
               <Button mr={3} onClick={onClose} variant="outline">
                 Close
               </Button>
-              <Button colorScheme="blue" type="submit" onClick={handleSubmit}>
+              <Button
+                colorScheme="blue"
+                type="submit"
+                onClick={
+                  data && user?.role === "admin"
+                    ? handleUpdateContent
+                    : handleSubmit
+                }
+              >
                 {data ? "Update" : "Submit"}
               </Button>
             </ModalFooter>

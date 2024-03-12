@@ -4,11 +4,17 @@ import { FaPlus, FaTrash } from "react-icons/fa";
 import {
   AddEditContentModal,
   AddEditCourseDrawer,
+  Alert,
   CourseIcon
 } from "../../Components";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { getMyCourses, removeMyCourse } from "../../State/Actions";
+import {
+  getAllCourses,
+  getMyCourses,
+  removeCourse,
+  removeMyCourse
+} from "../../State/Actions";
 
 const CourseCard = ({
   course_name,
@@ -29,6 +35,30 @@ const CourseCard = ({
     dispatch(removeMyCourse(token, id)).then((res) => {
       if (res?.type === "REMOVE_MY_COURSE_SUCCESS") {
         dispatch(getMyCourses(token, user?.id));
+        toast({
+          status: "success",
+          title: "Course Removed!",
+          duration: 1500,
+          isClosable: true,
+          position: "top-right"
+        });
+      } else {
+        toast({
+          status: "error",
+          title: "Failed to removed Course!",
+          description: "Something went wrong!, Please try again.",
+          duration: 1500,
+          isClosable: true,
+          position: "top-right"
+        });
+      }
+    });
+  };
+
+  const handleRemoveCourse = (token, id) => {
+    dispatch(removeCourse(token, id)).then((res) => {
+      if (res?.type === "REMOVE_COURSE_SUCCESS") {
+        dispatch(getAllCourses(token));
         toast({
           status: "success",
           title: "Course Removed!",
@@ -110,9 +140,12 @@ const CourseCard = ({
             />
           </Tooltip>
           <Tooltip label="Remove course">
-            <Button size="xs" bg="red.200" color="red">
-              <FaTrash />
-            </Button>
+            <Alert
+              title={course_name}
+              subtitle="Course"
+              id={_id}
+              handleClick={handleRemoveCourse}
+            />
           </Tooltip>
         </Flex>
       )}
